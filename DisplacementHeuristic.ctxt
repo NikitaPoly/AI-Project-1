@@ -5,4 +5,5 @@ comment1.params=goalState
 comment1.target=DisplacementHeuristic(PuzzleState)
 comment2.params=state
 comment2.target=int\ distance(PuzzleState)
+comment2.text=\ \r\n\ Returns\ the\ number\ of\ tiles\ in\ the\ wrong\ position.\ \r\n
 numComments=3

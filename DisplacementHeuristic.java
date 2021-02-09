@@ -13,16 +13,13 @@ public class DisplacementHeuristic implements Heuristic {
          * Returns the number of tiles in the wrong position. 
          */
     public int distance(PuzzleState state) {
-        
-        int numOfTiles = 8;
-        int wrongPos =0;
-        for(int i = 0; i < numOfTiles ; i++){
-            if(goalState.posOf(i) != state.posOf(i)){
+        int numOfTiles = 9;
+        int wrongPos = 0;
+        for(int i = 1; i < numOfTiles; i++){//loop thru each number 1-8 and check if its in the right position
+            if(goalState.posOf(i) != state.posOf(i)){//if not is same position then add to displacment
                 wrongPos++;
-            }
-            
+           }    
         }
-        
         return wrongPos;
     }
 }

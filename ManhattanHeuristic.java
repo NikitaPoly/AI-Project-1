@@ -14,18 +14,24 @@ public class ManhattanHeuristic implements Heuristic {
      * Returns a a distance each tile should be moved regardless of othere tiles
      */
     public int distance(PuzzleState state) {
-        int numOfTiles = 8;
+        int numOfTiles = 9;
         int rowLength = 3;
         int finalDistance = 0;
-        for(int i = 0; i < numOfTiles; i++){
+        for(int i = 1; i < numOfTiles; i++){
             if(goalState.posOf(i) != state.posOf(i)){
                 int indexOfMissplacedTile = state.posOf(i);
                 int indexOfGoalplacedTile = goalState.posOf(i);
-                int notFinalDistance = Math.abs(indexOfGoalplacedTile - indexOfMissplacedTile);
+                int indexDifference = Math.abs(indexOfGoalplacedTile - indexOfMissplacedTile);
                 int finalDistanceOfThisTile = 0;
-                if(notFinalDistance >= rowLength){
-                    finalDistanceOfThisTile = notFinalDistance / 3;// number of rows moved
-                    finalDistanceOfThisTile += notFinalDistance % 3;// number of columns moved
+                if(indexDifference >= rowLength){
+                    finalDistanceOfThisTile += indexDifference / 3;// number of rows moved
+                    finalDistanceOfThisTile += indexDifference % 3;// number of columns moved
+                }
+                else if(indexDifference < rowLength && (indexDifference + 1)%rowLength == 0){//special case if the tile needs to travel ex(from index 3 to 4 or vice verca);
+                 finalDistanceOfThisTile += 3;
+                }
+                else{
+                    finalDistanceOfThisTile += indexDifference;
                 }
                 finalDistance += finalDistanceOfThisTile;
             }
