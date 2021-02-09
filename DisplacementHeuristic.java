@@ -9,10 +9,20 @@ public class DisplacementHeuristic implements Heuristic {
     public DisplacementHeuristic(PuzzleState goalState) {
         this.goalState = goalState;
     }
-    
+    /** 
+         * Returns the number of tiles in the wrong position. 
+         */
     public int distance(PuzzleState state) {
-        // *************************** TO DO
-        return -1;
+        
+        int numOfTiles = 8;
+        int wrongPos =0;
+        for(int i = 0; i < numOfTiles ; i++){
+            if(goalState.posOf(i) != state.posOf(i)){
+                wrongPos++;
+            }
+            
+        }
+        
+        return wrongPos;
     }
-    
 }

@@ -84,7 +84,6 @@ public class PuzzleState {
         else
             return Arrays.equals(this.tiles, ((PuzzleState) other).tiles);
     }
-    
     /**
      * Required to be able to have a HashSet of PuzzleState objects.
      * Objects for which .equals() returns true must have the same hashCode.
@@ -93,7 +92,6 @@ public class PuzzleState {
     public int hashCode() {
         return Arrays.hashCode(tiles);
     }
-    
     /**
      * Returns a String representation of the state.
      */

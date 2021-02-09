@@ -5,4 +5,5 @@ comment1.params=goalState
 comment1.target=ManhattanHeuristic(PuzzleState)
 comment2.params=state
 comment2.target=int\ distance(PuzzleState)
+comment2.text=\r\n\ Returns\ a\ a\ distance\ each\ tile\ should\ be\ moved\ regardless\ of\ othere\ tiles\r\n
 numComments=3
