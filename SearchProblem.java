@@ -12,11 +12,13 @@ import java.util.Comparator;
  * @author Steven Bogaerts
  */
 public class SearchProblem {
-
-    // *************************** TO DO - define whatever fields you need here
-    private Queue<PuzzlePath> frontier;
-        
     
+    private int maxDepthOfSearch;
+    private PuzzleState goalState;
+    private Heuristic h;
+    private Queue<PuzzlePath> frontier;   
+    // *************************** TO DO - define whatever fields you need here
+     
     /**
      * This Comparator object is an instance of an anonymous class.
      * It compares two paths based on cost, for use in the PriorityQueue, for ordering.
@@ -41,8 +43,24 @@ public class SearchProblem {
      */
     public SearchProblem(PuzzleState initState, PuzzleState goalState, String queueType, int goalCheckLimit, Heuristic h) {
         // *************************** TO DO - do whatever initialization you need here
+        maxDepthOfSearch = goalCheckLimit;
+        this.goalState = goalState;
+        if(queueType == "FIFO"){// Check the value of queueType, and set the frontier to the correct type.
+            h = new NoHeuristic();
+            frontier = new LinkedList<PuzzlePath>();
+            frontier.add(new PuzzlePath(initState,h));
+        }
+        else{//temp throw branch
+            try
+            {
+                throw new Exception("Not a FIFO");
+            }
+            catch (java.lang.Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
         
-        // Check the value of queueType, and set the frontier to the correct type.
     }
     
     /**
