@@ -12,13 +12,12 @@ import java.util.Comparator;
  * @author Steven Bogaerts
  */
 public class SearchProblem {
-    
-    private int maxDepthOfSearch;
+    private int maxChecks;
     private PuzzleState goalState;
     private Heuristic h;
-    private Queue<PuzzlePath> frontier;   
+    private Queue<PuzzlePath> frontier;
+    private HashSet<PuzzleState> expanded= new HashSet<PuzzleState>();
     // *************************** TO DO - define whatever fields you need here
-     
     /**
      * This Comparator object is an instance of an anonymous class.
      * It compares two paths based on cost, for use in the PriorityQueue, for ordering.
@@ -28,7 +27,6 @@ public class SearchProblem {
             return p1.getCost() - p2.getCost();
         }
     };
-    
     /**
      * Constructs a new SearchProblem.
      * 
@@ -43,7 +41,7 @@ public class SearchProblem {
      */
     public SearchProblem(PuzzleState initState, PuzzleState goalState, String queueType, int goalCheckLimit, Heuristic h) {
         // *************************** TO DO - do whatever initialization you need here
-        maxDepthOfSearch = goalCheckLimit;
+        maxChecks = goalCheckLimit;
         this.goalState = goalState;
         if(queueType == "FIFO"){// Check the value of queueType, and set the frontier to the correct type.
             h = new NoHeuristic();
@@ -60,15 +58,30 @@ public class SearchProblem {
                 e.printStackTrace();
             }
         }
-        
     }
-    
     /**
      * Solve this search problem.
      */
     public boolean solve() {
-        // *************************** TO DO
-
+        int checksDone = 1;
+        while(!frontier.isEmpty() && checksDone <= maxChecks){
+            PuzzlePath n = frontier.remove();//get and remove first state in the queue
+            PuzzleState currentState = n.stateAtEndOfPath();
+            if(currentState.equals(goalState)){//ifsolution is found
+                System.out.print("GoalReached with " + checksDone + "Checks");
+                return true;//figure out how to return solution
+            }
+            expanded.add(currentState);//add node to the expanded set to prevent duplicates
+            LinkedList<PuzzleState> listOfPotentialNewStates= currentState.expand();
+            for(PuzzleState state:listOfPotentialNewStates){
+                if(!expanded.contains(state)){//might be bug cause of types check later                   
+                   PuzzlePath copyOfn = n.makeCopy();
+                   copyOfn.addState(state);
+                   frontier.add(copyOfn);
+                }
+            }
+            checksDone++;
+        }
         return false;
     }
         

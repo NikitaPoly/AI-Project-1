@@ -65,7 +65,7 @@ public class PuzzleState {
             tempArr[blankIndex - 1] = 0;//move blank left
             finalList.add(new PuzzleState(tempArr));
         }
-        if(blankIndex + 1 % rowLength != 0){//check if blank is not in right column then move blank right
+        if((blankIndex + 1) % rowLength != 0){//check if blank is not in right column then move blank right
             int[] tempArr = Arrays.copyOf(tiles,tiles.length);
             tempArr[blankIndex] = tempArr[blankIndex + 1];//move the value to blanks space
             tempArr[blankIndex + 1] = 0;//move blank left
