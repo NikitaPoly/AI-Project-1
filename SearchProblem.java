@@ -44,31 +44,27 @@ public class SearchProblem {
         maxChecks = goalCheckLimit;
         this.goalState = goalState;
         if(queueType == "FIFO"){// Check the value of queueType, and set the frontier to the correct type.
-            h = new NoHeuristic();
+            this.h = new NoHeuristic();
             frontier = new LinkedList<PuzzlePath>();
             frontier.add(new PuzzlePath(initState,h));
         }
-        else{//temp throw branch
-            try
-            {
-                throw new Exception("Not a FIFO");
-            }
-            catch (java.lang.Exception e)
-            {
-                e.printStackTrace();
-            }
+        else{
+            this.h = h; 
+            frontier = new PriorityQueue<PuzzlePath>(100,pathComparator);
+            frontier.add(new PuzzlePath(initState,h));
         }
     }
     /**
      * Solve this search problem.
      */
     public boolean solve() {
-        int checksDone = 1;
+        int checksDone = 0;
         while(!frontier.isEmpty() && checksDone <= maxChecks){
+            checksDone++;
             PuzzlePath n = frontier.remove();//get and remove first state in the queue
             PuzzleState currentState = n.stateAtEndOfPath();
             if(currentState.equals(goalState)){//ifsolution is found
-                System.out.print("GoalReached with " + checksDone + "Checks");
+                System.out.print(checksDone + " : checks done\n" + n.length() + ": is the length\n" +  n);
                 return true;//figure out how to return solution
             }
             expanded.add(currentState);//add node to the expanded set to prevent duplicates
@@ -80,8 +76,8 @@ public class SearchProblem {
                    frontier.add(copyOfn);
                 }
             }
-            checksDone++;
         }
+        
         return false;
     }
         
